@@ -1,0 +1,57 @@
+<template>
+  <div class="page page-home">
+    <div class="page-content login-screen-content" style="background-color: #3367EC;">
+      <div class="login-screen-title" style="margin-bottom:100px ; color: antiquewhite;">Sipotan Mobile</div>
+      <form>
+        <div class="list">
+          <div class="row">
+            <div class="card card-outline radius10" style="margin-left: 60px; margin-right: 60px; margin-bottom: 700px; padding-bottom: 50px;">
+              <img src="img/pemda_full.png" class="besar-icon radius20" style=" margin-left: 100px; margin-top: 30px;"/>
+              <div class="card-content card-content-padding">
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Username</div>
+                          <div class="item-input-wrap">
+                            <input type="text" name="username" id="user" placeholder="Your username" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Password</div>
+                        <div class="item-input-wrap">
+                          <input type="password" name="password" id="pass" placeholder="Your password" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             <div class="row" >
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <button type="button" @click="${()=> login()}" class="col button button-fill color-green" style="margin-left:24px ; margin-right: 80px; ;">login</button>
+                </div>
+              </div>
+             </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default (props, ctx) => {
+
+    return $render;
+  }
+</script>
+ 

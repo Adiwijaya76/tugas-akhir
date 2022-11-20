@@ -1,0 +1,35 @@
+<template>
+    <div data-name="petani" class="page">
+        <div class="page page-home">
+            <div class="navbar no-shadow" style=" color:white;height: 55px;">
+                <div class="navbar-bg" style="background-color:#3367EC;"></div>
+                <div class="navbar-inner">
+                    <div class="title-sliding">
+                        <div class="right">
+                            <a href="/filter/"  style="color: white; margin-right:30px;">
+                                <i class="icons f7-icons">search</i>
+                            </a>
+                        </div>
+                        <div class="left">
+                            <img src="img/checklist.png" />
+                            <label style="margin-left: 10px;" >Lahan Pertanian</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="background-color: #3367EC; margin-top: 54px; height: 3798px;"></div>
+            <div class="page-content" style="margin-top: -3830px;">
+                <span id="data_petani"></span> 
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default (props, ctx) =>  {
+        var $on = ctx.$on;
+        $on('pageInit', () => {
+            cari();
+        })
+     return $renders;
+    }
+</script>

@@ -1,0 +1,81 @@
+<template>
+    <div class="page page-home">
+        <div class="navbar no-shadow" style="height:55px; color: white;">
+            <div class="navbar-bg" style="background-color: #3367EC;" fixed></div>
+            <div class="navbar-inner">
+                <div class="title-sliding" style="margin-left:20px ;">
+                    Hello,<br/>
+                    <b>Selamat Datang Kembali</b>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: #3367EC; margin-top: 54px; height: 3798px;"></div>
+        <div class="page-content" style="margin-top: -3830px;">
+            <div class="card" style="margin: 0px 10px 10px 10px; border-radius: 23px; background-color:#F0EBE3;">
+                <div class="card-content card-content-padding">
+                    <div class="row mb-10">
+                        <div class="col-20" style="font-size: 25px; text-align: center;  color: #7D9D9C;"><img src="img/user.png" style="margin-bottom: 10px; display:block; margin-left:auto; margin-right:auto; text-align:center; width: 100%" /></div>
+                        <div class="col-80" style="font-size: 17px; color: #7D9D9C;"><b id="username"></b><br /><b id="nama">   </b></div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row" style="margin-left:3%;margin-right:3%;">
+                <div class="col">
+                    <a href="/mntr/" class="col text-align-center">
+                        <div class="card" style="margin: 15px 5px 15px 5px; border-radius: 20px; height:250px; background-color:#97DBAE;">
+                            <div class="card-content card-content-padding">
+                                <br/>
+                                  <img src="img/m.png" style="width:100%;"/>
+                                    <h4 style="color:white ;">Monitoring Unsur Hara</h4>  
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="/filter/" class="col text-align-center">
+                        <div class="card" style="margin: 15px 5px 15px 5px; border-radius: 20px; height:250px; background-color: #92B4EC;">
+                            <div class="card-content card-content-padding">
+                                <br/>
+                                  <img src="img/p.png" style="width:100%;"/>
+                                    <h4 style="color:white ;">Unsur Hara Lahan</h4>  
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <br/>
+            <div class="row" style="margin-left:3%; margin-right: 3%;">
+                <div class="col">
+                    <a href="/apk/" class="col text-align-center">
+                        <div class="card" style="margin: 15px 5px 15px 5px; border-radius: 20px; height:130px; background-color: #47B5FF;">
+                            <div class="card-content card-content-padding">
+                                  <img src="img/about.png" style="width:23%;"/>
+                                    <h4 style="color: white;">Tentang Aplikasi</h4>  
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/data/" class="col text-align-center"  @click="${()=> logout()}">
+                        <div class="card" style=" border-radius: 10px; height: 60px; background-color: #FF5D5D;">
+                            <div class="card-content card-content-padding">
+                                <div class="row mb-10">
+                                    <div class="col-30" style="font-size: 25px; text-align: center;"><img src="img/logout.png" style="margin-bottom: 10px; display:block; margin-left:auto; margin-right:auto; text-align:center; width: 30%" /></div>
+                                    <div class="col-70" style="font-size: 25px; color: white;"><label>Logout</label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+ export default (props, ctx) => {
+        var $on = ctx.$on;
+        $on('pageInit', () => {
+            profil();
+        })
+        return $render;
+    }
+</script>

@@ -1,0 +1,11 @@
+contoh:
+CREATE TABLE jenis_surat (
+kode VARCHAR(10) NOT NULL,
+nama_jenis_surat VARCHAR(50) NOT NULL,
+keterangan TEXT NOT NULL,
+tgl_buat DATETIME NOT NULL,
+tgl_update DATETIME NOT NULL,
+id_buat VARCHAR(25) NOT NULL,
+id_update VARCHAR(25) NOT NULL,
+PRIMARY KEY(kode)
+)engine=myisam default charset=latin1;

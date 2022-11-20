@@ -1,0 +1,124 @@
+<template>
+    <div data-name="mntr" class="page">
+        <div class="page page-home">
+            <div class="navbar no-shadow" style=" color:white;height: 55px;">
+                <div class="navbar-bg" style="background-color:#3367EC;"></div>
+                <div class="navbar-inner">
+                    <div class="title-sliding">
+                        <div class="right">
+                            <a href="#" class="link back" style="color: white;">
+                                <i class="icons f7-icons">arrow_left</i>
+                            </a>
+                        </div>
+                        <div class="left">
+                            <img src="img/mntr.png" />
+                            <label>Kelola Data Monitoring Unsur Hara</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="background-color: #3367EC; margin-top: 54px; height: 370px;"></div>
+            <div class="page-content" style="margin-top: -420px;">
+                <div class="card card-outline radius10"
+                    style="margin-left: 10px; margin-right: 10px; margin-bottom: 100px;">
+                    <div class="card-content card-padding" style="background-color: #fff;">
+                        <div class="row">
+                            <div class="col-100">
+                                <font style="font-size: 10px; margin-left: 10px;"><b></b></font> <br />
+                                <div class="list">
+                                    <div class="item-content item-input">
+                                        <div class="col-15">
+                                            <div class="item-media"><i class="icon f7-icons" style="color:#3367EC;">plus_square_on_square</i></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">NIK :</div>
+                                            <div class="item-input-wrap" id="hasile">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-outline radius10"
+                    style="margin-left: 10px; margin-right: 10px; margin-bottom: 100px;">
+                    <div class="card-content card-padding" style="background-color: #fff;">
+                        <div class="row">
+                            <div class="col-100">
+                                <font style="font-size: 10px; margin-left: 10px;"><b>Tambah Data Monitoring Unsur Hara</b></font> <br />
+                                <div class="list">
+                                    <div class="item-content item-input">
+                                        <div class="col-15">
+                                            <div class="item-media"><i class="icon f7-icons" style="color:#3367EC;">plus_square_on_square</i></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">masa tanam :</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                            <select id="pola_tanam">
+                                                <option selected disabled="">Masa Tanam*</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-content item-input">
+                                        <div class="col-15">
+                                            <div class="item-media"><i class="icon f7-icons" style="color:#3367EC;">rectangle_stack_badge_plus</i></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">nama unsur hara :</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select id="unsur_hara">
+                                                    <option selected disabled="">Unsur Hara*</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-content item-input">
+                                        <div class="col-15">
+                                            <div class="item-media"><i class="icon f7-icons" style="color:#3367EC;">plus_square</i></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Luas Lahan :</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select id="nop">
+                                                    <option selected disabled="">Luas Lahan*</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-content item-input">
+                                        <div class="col-15">
+                                            <div class="item-media"><i class="icon f7-icons" style="color:#3367EC;">chart_bar_square_fill</i>
+                                            </div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Nilai :</div>
+                                            <div class="item-input-wrap"><input type="number" id="txtnl" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="item-content item-input-row">
+                                        <button type="button" @click="${()=> monitoring_tambah()}" class="col button button-fill color-green" style="margin-left:10px ; margin-right: 10px;">Simpan</button>
+                                        <button type="button" class="col button button-fill color-red" style="margin-left:10px ; margin-right: 10px;">Batal</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default (props, ctx) => {
+        var $on = ctx.$on;
+        $on('pageInit', () => {
+            list_nop();
+            polaTanam();
+            unsurHara();
+        })
+        return $render;
+    }
+</script>

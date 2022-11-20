@@ -1,0 +1,35 @@
+<template>
+    <div data-name="mntr" class="page">
+        <div class="page page-home">
+            <div class="navbar no-shadow" style=" color:white;height: 55px;">
+                <div class="navbar-bg" style="background-color:#3367EC;"></div>
+                <div class="navbar-inner">
+                    <div class="title-sliding">
+                        <div class="right">
+                            <a href="#" class="link back" style="color: white;">
+                                <i class="icons f7-icons">arrow_left</i>
+                            </a>
+                        </div>
+                        <div class="left">
+                            <img src="img/mntr.png" />
+                            <label>Monitoring Unsur Hara</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="background-color: #3367EC; margin-top: 55px; height: 3798px;"></div>
+            <div class="page-content" style="margin-top: -3830px;">
+                <span id="monitoring" style="margin-top: 40px; "></span> 
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default function (props, ctx)  {
+        var $on = ctx.$on;                              
+        $on('pageInit', () => {
+            monitoring();
+        })
+        return $render;
+    }
+</script>

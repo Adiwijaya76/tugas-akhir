@@ -1,0 +1,179 @@
+<template>
+    <div data-name="mntr" class="page">
+        <div class="page page-home">
+            <div class="navbar no-shadow" style=" color:white;height: 55px;">
+                <div class="navbar-bg" style="background-color:#3367EC;"></div>
+                <div class="navbar-inner">
+                    <div class="title-sliding">
+                        <div class="right">
+                            <a href="#" class="link back" style="color: white;">
+                                <i class="icons f7-icons">search</i>
+                            </a>
+                        </div>
+                        <div class="left">
+                            <img src="img/mntr.png" />
+                            <label>Filter Data Lahan</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="background-color: #3367EC; margin-top: 54px; height: 370px;"></div>
+            <div class="page-content" style="margin-top: -420px;">
+                <div class="card card-outline radius10" style="margin-left: 10px; margin-right: 10px; margin-bottom: 100px;">
+                    <div class="card-content card-padding" style="background-color: #fff;">
+                        <div class="row">
+                            <div class="col-100">
+                                <font style="font-size: 10px; margin-left: 10px;"><b>Filter Data Pencarian Wilayah</b></font><br/>
+                                <div class="list">
+                                    <div class="item-content item-input">
+                                        <div class="col-20">
+                                            <div class="item-media"><i class="icon f7-icons">placemark</i></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Provinsi*</div>
+                                            <div class="item-input-wrap"><input type="text" id="txtpropinsi" readonly/></div>
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label"></div>
+                                                <div class="item-input-wrap">
+                                                    <button type="button" class="button button-fill" @click="${() => getpropinsi()}">
+                                                        <i class="icon f7-icons">search</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-content item-input">
+                                        <div class="col-20">
+                                            <div class="item-media"><i class="icon f7-icons">placemark</i></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Kabupaten*</div>
+                                            <div class="item-input-wrap"><input type="text" id="txtkabupaten" readonly/></div>
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label"></div>
+                                                <div class="item-input-wrap">
+                                                    <button type="button" class="button button-fill" @click="${() => getkabkota()}">
+                                                        <i  class="icon f7-icons">search</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-content item-input">
+                                        <div class="col-20">
+                                            <div class="item-media"><i class="icon f7-icons">placemark</i></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Kecamatan*</div>
+                                            <div class="item-input-wrap"><input type="text" id="txtkecamatan" readonly/></div>
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label"></div>
+                                                <div class="item-input-wrap">
+                                                    <button type="button" class="button button-fill" @click="${() => getkecamatan()}">
+                                                        <i  class="icon f7-icons">search</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-content item-input">
+                                        <div class="col-20">
+                                            <div class="item-media"><i class="icon f7-icons">placemark</i></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Desa*</div>
+                                            <div class="item-input-wrap"><input type="text" id="txtdesa" readonly/></div>
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label"></div>
+                                                <div class="item-input-wrap">
+                                                    <button type="button" class="button button-fill " @click="${() => getdesa()}">
+                                                        <i  class="icon f7-icons">search</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-content item-input-row">
+                                        <button type="button" id="cari_petani" @click="${() => cari()}" style="margin-left: 15px; margin-right: 15px;" class="button button-fill color-green">Cari</button>
+                                        <button type="button"  style="margin-left: 15px; margin-right: 15px;" class="button button-fill color-red" >Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup" id="sheet-propinsi">
+                <div class="page-content infinite-scroll-content infinite-scroll-top">  
+                    <div class="list">
+                        <a href=""class="link popup-close" style="color:black; margin-left:350px;">
+                            <i class="icon f7-icons">xmark</i>    
+                        </a>
+                        <div class="block">
+                            <ul id="blokpropinsi"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup" id="sheet-kabupaten">
+                <div class="page-content infinite-scroll-content infinite-scroll-top">
+                    <div class="list">
+                        <a href=""class="link popup-close" style="color:black; margin-left:350px;">
+                            <i class="icon f7-icons">xmark</i>    
+                        </a>
+                        <div class="block">
+                            <ul id="blokkabupaten">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup" id="sheet-kecamatan">
+                <div class="page-content infinite-scroll-content infinite-scroll-top">
+                    <div class="list">
+                        <a href=""class="link popup-close" style="color:black; margin-left:350px;">
+                            <i class="icon f7-icons">xmark</i>    
+                        </a>
+                        <div class="block">
+                            <ul id="blokkecamatan">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup" id="sheet-desa">
+                <div class="page-content infinite-scroll-content infinite-scroll-top">
+                    <div class="list">
+                        <a href=""class="link popup-close" style="color:black; margin-left:350px;">
+                            <i class="icon f7-icons">xmark</i>    
+                        </a>
+                        <div class="block">
+                            <ul id="blokdesa">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default (props, ctx) => {
+        var $on = ctx.$on;
+        $on('pageInit', () => {
+            
+        })
+        return $render;
+    }
+</script>

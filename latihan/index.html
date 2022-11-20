@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" maximum-scale=1, minimum-scale=1,
+    userscalable=no, viewport-fit=cover>
+  <meta name="apple-mobile-web-app-cappable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#fff">
+  <meta http-equiv="content-security-policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: ">
+  <link rel="stylesheet" href="core/framework7-bundle.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/main.css">
+  <title>Monitoring Unsur Hara </title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="view view-main view-init safe-areas" data-master-detail-breakpoint="768" data-url="/"></div>
+  </div>
+  <script src="core/framework7-bundle.min.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/detail_monitoring.js"></script>
+  <script src="js/tambah_monitoring.js"></script>
+  <script src="js/update_monitoring.js"></script>
+  <script src="js/delete_monitoring.js"></script>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script>
+        let url = "http://localhost/sipotan/";
+    cek_login();
+
+    function cek_login() {
+        if (localStorage.getItem("id") != null && localStorage.getItem("username") != null) {
+
+            app.views.main.router.navigate('/home/');
+        } else {
+            app.views.main.router.navigate('/login/');
+        }
+    }
+
+    function login() {
+        var user = $("#user").val()
+        var pass = $("#pass").val()
+
+        $.ajax({
+            url: url + "api/v1/login",
+            method: "POST",
+            data: {
+                username: user,
+                password: pass
+            },
+            cache: false,
+            success: function (data) {
+                if (data.status == 'success') {
+                    localStorage.setItem("id", data.data.id);
+                    localStorage.setItem("nama", data.data.nama);
+                    localStorage.setItem("username", data.data.username);
+                    location.reload(true);
+                    app.views.main.router.navigate('/home/');
+                } else {
+                    $('#password').val("");
+                    app.dialog.alert(data.message, "Peringatan");
+                }
+            }
+        });
+    }
+
+    function logout() {
+        app.dialog.alert("Apakah ingin keluar?", "Peringatan", function () {
+            localStorage.removeItem("id");
+            localStorage.removeItem("nama");
+            localStorage.removeItem("username");
+            location.reload(true);
+        });
+    }
+
+    function profil() {
+        $.getJSON(url + "api/v1/profil", { id: localStorage.getItem("id") }, function (data) {
+                $("#id").html(data.data.id);
+                $("#username").html(data.data.username);
+                $("#nama").html(data.data.nama);
+            });
+    }
+
+   function getpropinsi() {
+    app.dialog.preloader("Akses data.......");
+        $.getJSON(api + 'getpropinsi', function (result) {
+            app.dialog.close();
+            if (result.length > 0) {
+                let dt = "";
+                $.each(result, function (i, kolom) {
+                    let id = kolom.id;
+                    let nama = kolom.nama;
+                    dt += `<li>
+                        <a href="#" class="item-link item-content popup-close" data-nilai="${id} - ${nama}" data-tujuan="#txtpropinsi" onclick="setnilai(this)">
+                            <div class="item-inner"><div class="item-title">${nama}</div></div>
+                        </a>
+                    </li>`;
+                })
+                $("#blokpropinsi").html(dt);
+                app.popup.open("#sheet-propinsi");
+            } else {
+                app.dialog.alert("data tidak di temukan", "info");
+            }
+        })
+   }
+
+   function getkabkota() {
+    let dtx = $("#txtpropinsi").val();
+    let dt = dtx.split(" - ");
+    let idprop = dt[0];
+      if (dtx == "") {
+        app.dialog.alert(" Harus Terisi", "Cari Gagal");
+        return;
+      }
+    app.dialog.preloader("Akses data.......");
+        $.getJSON(api + 'getkabupaten/' + idprop, function (result) {
+            app.dialog.close();
+            if (result.length > 0) {
+                let dt = "";
+                $.each(result, function (i, kolom) {
+                    let id = kolom.id;
+                    let nama = kolom.nama;
+                    let jenis = kolom.jenis;
+                    dt += `<li>
+                        <a href="#" class="item-link item-content popup-close" data-nilai="${id} - ${nama} (${jenis})" data-tujuan="#txtkabupaten" onclick="setnilai(this)">
+                            <div class="item-inner"><div class="item-title">${jenis} ${nama}</div></div>
+                        </a>
+                    </li>`;
+                })
+                $("#blokkabupaten").html(dt);
+                app.popup.open("#sheet-kabupaten");
+            } else {
+                app.dialog.alert("data tidak di temukan", "info");
+            }
+        })
+   }
+
+   function getkecamatan() {
+    let dtx = $("#txtkabupaten").val();
+    let dt = dtx.split(" - ");
+    let idkab = dt[0];
+      if (dtx == "") {
+        app.dialog.alert(" Harus Terisi", "Cari Gagal");
+        return;
+      }
+    app.dialog.preloader("Akses data.......");
+        $.getJSON(api + 'getkecamatan/' + idkab, function (result) {
+            app.dialog.close();
+            if (result.length > 0) {
+                let dt = "";
+                $.each(result, function (i, kolom) {
+                    let id = kolom.id;
+                    let nama = kolom.nama;
+                    dt += `<li>
+                        <a href="#" class="item-link item-content popup-close" data-nilai="${id} - ${nama}" data-tujuan="#txtkecamatan" onclick="setnilai(this)">
+                            <div class="item-inner"><div class="item-title">${nama}</div></div>
+                        </a>
+                    </li>`;
+                })
+                $("#blokkecamatan").html(dt);
+                app.popup.open("#sheet-kecamatan");
+            } else {
+                app.dialog.alert("data tidak di temukan", "info");
+            }
+        })
+   }
+
+   function getdesa() {
+    let dtx = $("#txtkecamatan").val();
+    let dt = dtx.split(" - ");
+    let idkec = dt[0];
+      if (dtx == "") {
+        app.dialog.alert("harus Terisi", "Cari Gagal");
+        return;
+      }
+    app.dialog.preloader("Akses data.......");
+        $.getJSON(api + 'getdesa/' + idkec, function (result) {
+            app.dialog.close();
+            if (result.length > 0) {
+                let dt = "";
+                $.each(result, function (i, kolom) {
+                    let id = kolom.id;
+                    let nama = kolom.nama;
+                    dt += `<li>
+                        <a href="#" class="item-link item-content popup-close" data-nilai="${id} - ${nama}" data-tujuan="#txtdesa" onclick="setnilai(this)">
+                            <div class="item-inner"><div class="item-title">${nama}</div></div>
+                        </a>
+                    </li>`;
+                })
+                $("#blokdesa").html(dt);
+                app.popup.open("#sheet-desa");
+            } else {
+                app.dialog.alert("data tidak di temukan", "info");
+            }
+        })
+   }
+
+   function setnilai(el){
+        let nilai = $(el).data("nilai");
+        let tujuan = $(el).data("tujuan");
+        $(tujuan).val(nilai);
+   }
+
+   function cari() {
+    let dtx = $("#txtdesa").val();
+    let dt = dtx.split(" - ");
+    let id_desa = dt[0];
+    var dtunsurhara = "";
+    
+      if (dtx == "") {
+        app.dialog.alert("kolom pencarian harus lengkap", "Notification");
+        return;
+      }
+    $.getJSON(api + 'cari/' + id_desa, function (result) {
+        if (result.length > 0) {
+            let dt = "";
+            $.each(result, function (i, item) {
+                dtunsurhara += `
+                <a href="/addmntr/" data-nik=`+ item.nik+` data-nama=`+item.nama+`  onclick="bawadata(this)">
+                <div class="card card-outline radius10" style="margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+                    <div class="card-content card-padding" style="background-color: #fff;">
+                        <div class="row">
+                            <div class="col-100">
+                                <font style="font-size: 10px; margin-left: 10px;"><b> Data unsur hara</b></font>
+                                <br/>
+                                <div class="list"data-nik=`+ item.nik+` onclick="bawadata(this)">
+                                    <a href="/addmntr/" data-nik=`+ item.nik+` onclick="bawadata(this)">
+                                    <div class="item-content item-input">
+                                        <div class="col-15">                
+                                            <div class="item-media"><i class="icon f7-icons" style="color:#3367EC;">chart_bar_square_fill</i></div></div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">nik :</div>
+                                            <div class="item-input-wrap"readonly>` + item.nik + `</div>
+                                        </div>
+                                    </div>
+                                    </a>
+                                    <a href="/addmntr/" data-nik=`+ item.nik+` onclick="bawadata(this)">
+                                    <div class="item-content item-input">
+                                        <div class="col-15">                
+                                            <div class="item-media"><i class="icon f7-icons" style="color:#3367EC;">folder_badge_plus</i></div></div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Nama :</div>
+                                            <div class="item-input-wrap"readonly>` + item.nama + `</div>
+                                        </div>
+                                    </div>
+                                    </a>
+                                    <a href="/addmntr/" data-nik=`+ item.nik+` onclick="bawadata(this)">
+                                    <div class="item-content item-input">
+                                        <div class="col-15">                
+                                            <div class="item-media"><i class="icon f7-icons" style="color:#3367EC;">folder_badge_plus</i></div></div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">alamat :</div>
+                                            <div class="item-input-wrap"readonly>` + item.alamat + `</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>`;
+            })
+            $("#data_petani").html(dtunsurhara);
+            app.views.main.router.navigate('/petani/');
+        } else {
+            app.dialog.alert("data tidak di temukan", "info");
+        }
+    });  
+      
+}
+
+    function bawadata(el){
+      let nik = $(el).data("nik");
+      let nama = $(el).data("nama");
+
+        $("#hasile").html(nik)
+    }
+  </script>
+</body>
+
+</html>
